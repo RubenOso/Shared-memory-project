@@ -22,7 +22,7 @@ This project demonstrates the use of shared memory and process synchronization i
 Compile the source file: To compile the main.c file using gcc, use the following command:
 
 
-gcc -o shared_memory main.c -lpthread
+gcc -o sharedmemory main.c -lpthread
 This will compile the source code into an executable named shared_memory.
 
 Run the program: To run the compiled program, use the following command:

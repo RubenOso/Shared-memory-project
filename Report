@@ -19,8 +19,8 @@ shared variable. Each process stores its result in shared memory, and the parent
 2. System Setup
 Programming Language: C
 Compiler: GCC (GNU Compiler Collection)
-Operating System: Linux (Ubuntu 20.04)
-Test Environment: The code was tested on a virtual machine running Ubuntu 20.04 with 4 GB of RAM and an Intel Core i5 processor.
+Operating System: MacOS Sonoma 14.4.1 (23E224)
+Test Environment: The code was tested on a virtual machine 
 Code Structure:
 The source file main.c contains the implementation of the shared memory and process synchronization.
 3. Implementation

@@ -56,3 +56,13 @@ This project demonstrated the successful use of shared memory and process synchr
 execution time and minimal memory usage. It met all the required specifications, and the implementation could be extended for more 
 complex tasks with additional processes.
 
+Appendix: Sample Output
+From Process 1: counter = 100000.
+From Process 2: counter = 200000.
+From Process 3: counter = 300000.
+From Process 4: counter = 500000.
+Child with ID: 12345 has just exited.
+Child with ID: 12346 has just exited.
+Child with ID: 12347 has just exited.
+Child with ID: 12348 has just exited.
+End of Simulation.

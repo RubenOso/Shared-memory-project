@@ -22,12 +22,12 @@ This project demonstrates the use of shared memory and process synchronization i
 Compile the source file: To compile the main.c file using gcc, use the following command:
 
 
-gcc -o sharedmemory main.c -lpthread
+gcc -o sharedmemory main.c 
 This will compile the source code into an executable named shared_memory.
 
 Run the program: To run the compiled program, use the following command:
 
-./shared_memory
+./sharedmemory
 Expected Output: The program will print the results of all processes in order (Process 1 to Process 4) before any child process exits. After that, it will print the process IDs of the children as they exit. The output should look like the following:
 
 

@@ -3,76 +3,56 @@ Author: Ruben Osornio
 Username: cs096@cs096
 
 Abstract
-This project focuses on implementing shared memory and process synchronization using the C programming language. The goal is to create
-four child processes that cooperate by modifying a shared variable. The parent process ensures the results are printed in the right order
-before any of the child processes exit. This report explains how the solution was implemented, provides an analysis of the results, and 
-discusses the program's performance.
+This report evaluates the implementation of a shared memory and process synchronization solution in C. The program creates four 
+child processes, which modify a shared variable while ensuring synchronization using POSIX shared memory and mutexes. The parent 
+process ensures the results are printed in the correct order before the child processes exit. Performance testing showed stable 
+execution times, minimal memory usage, and low CPU overhead.
 
 1. Introduction
-In this project, we need to create four child processes that share and modify a common variable, incrementing it by different amounts.
-The parent process is responsible for making sure that each process prints its result before it exits. This requires synchronizing the 
-processes using shared memory and a mutex lock.
-
-The solution uses POSIX shared memory and a mutex lock to ensure that processes do not interfere with each other while modifying the 
-shared variable. Each process stores its result in shared memory, and the parent prints the results before the children exit.
+This project aims to create four child processes that increment a shared variable concurrently. Each process performs a set number
+of increments and stores the result in shared memory. The parent process prints the results after all processes finish their work. 
+To manage synchronization, the solution uses POSIX shared memory and mutex locks to avoid conflicts between processes accessing the 
+shared variable.
 
 2. System Setup
 Programming Language: C
 Compiler: GCC (GNU Compiler Collection)
-Operating System: MacOS Sonoma 14.4.1 (23E224)
-Test Environment: The code was tested on a virtual machine 
-Code Structure:
-The source file main.c contains the implementation of the shared memory and process synchronization.
+Operating System: macOS Sonoma 14.4.1 (23E224)
+Test Environment: The code was tested on a virtual machine.
 3. Implementation
-The implementation consists of four child processes created using the fork() system call. Each process performs its task by incrementing
-a local counter up to a specific limit (e.g., 100,000, 200,000, etc.). The results are stored in shared memory, and the parent process 
-waits for all children to complete before printing the results in order.
+The program uses fork() to create four child processes, which perform different amounts of increments (100,000, 200,000, 300,000, 
+and 500,000). Shared memory (shmget(), shmat()) is used to store the results, and a pthread_mutex_t lock ensures that no two processes 
+modify the shared variable at the same time. The parent process waits for all child processes to signal that they are done before 
+printing the results.
 
-Shared Memory: POSIX shared memory (shmget, shmat) is used to store the results and flags that signal when each process is done.
-Process Synchronization: A mutex lock ensures that no two processes update the shared variable at the same time.
-Control Flow: Each child process signals the parent when it has finished, but it doesn't exit until the parent has printed all the results.
 4. Performance Evaluation
 4.1 Execution Time
-The execution time was measured using the time command in the Linux terminal. The table below shows the execution times over three test runs. 
-The program performed consistently, with average execution times of around 0.020 seconds.
+Execution time was measured using the time command. Below are the results for three test runs:
 
 Run	User Time	System Time	Total Time
+
 real	0m0.029s
 user	0m0.054s
 sys	0m0.000s
-The execution time was fairly stable across different runs.
 
 4.2 Memory Usage
-The shared memory segment allocated 128 bytes (sizeof(shared_data_t)), which was enough to store the results and status flags for the 
-processes. This amount of memory is very small, and the program ran within the allocated memory without any issues.
+The shared memory segment allocated 128 bytes, which was enough to store the results and status flags for the processes. The program
+efficiently handled memory, as the total allocation was very small.
 
 4.3 CPU Usage
-The program's CPU usage was minimal. Since the processes are relatively simple (just incrementing counters), most of the execution time is
-spent in user space, with minimal system overhead.
+CPU usage was minimal since the tasks were relatively simple. The majority of time was spent in user mode, with very little overhead 
+in the system.
 
 5. Analysis
-The program performed well and met all the requirements. Each process was created correctly, and the parent was able to control when the 
-results were printed and when the child processes exited.
+The program met all requirements and performed well. Each child process incremented its counters correctly, and the parent ensured 
+the results were printed in the correct order before the processes exited. The use of POSIX shared memory and mutex locks successfully
+avoided race conditions.
 
-Correctness: All child processes incremented their counters as expected and stored their results in shared memory.
-Synchronization: The parent controlled the output and ensured that the processes were synchronized using shared memory and mutex locks.
-Performance: The program executed quickly, with an average total time of 0.020 seconds, and used minimal memory and CPU resources.
-Scalability: The current setup with four processes works efficiently. If we wanted to add more processes, the shared memory structure 
-could be easily modified to accommodate them.
-5.1 Quantitative Data
-Number of Child Processes: 4
-Shared Memory Size: 128 bytes
-Iterations:
-Process 1: 100,000 increments
-Process 2: 200,000 increments
-Process 3: 300,000 increments
-Process 4: 500,000 increments
-Execution Time: Average of 0.020 seconds
-Memory Usage: 128 bytes of shared memory
+The program’s execution time and memory usage were both low, as expected for a task of this complexity. The solution could scale up to
+handle more processes with minor adjustments to the shared memory structure.
+
 6. Conclusion
-In this project, shared memory and process synchronization were successfully implemented using C. The program met all the project
-requirements by creating four cooperating processes, ensuring that the results were printed in the correct order, and properly releasing 
-shared resources at the end.
+This project demonstrated the successful use of shared memory and process synchronization in C. The program ran efficiently, with low 
+execution time and minimal memory usage. It met all the required specifications, and the implementation could be extended for more 
+complex tasks with additional processes.
 
-The program demonstrated good performance with low execution time and minimal resource usage. The approach can be easily scaled or extended
-to handle more complex tasks involving additional processes.

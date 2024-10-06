@@ -82,3 +82,15 @@ adhering to the requirements outlined in the project rubric.
 
 Future improvements could involve optimizing the synchronization mechanism further or scaling the solution to handle more complex 
 scenarios involving a higher number of processes.
+
+Appendix: Sample Output
+
+From Process 1: counter = 100000.
+From Process 2: counter = 200000.
+From Process 3: counter = 300000.
+From Process 4: counter = 500000.
+Child with ID: 2412 has just exited.
+Child with ID: 2411 has just exited.
+Child with ID: 2413 has just exited.
+Child with ID: 2415 has just exited.
+End of Simulation.

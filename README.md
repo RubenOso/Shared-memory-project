@@ -1,5 +1,4 @@
 # Shared-memory-project
-@readme
 
 README.md
 md
